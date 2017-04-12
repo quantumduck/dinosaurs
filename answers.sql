@@ -4,113 +4,27 @@ SELECT COUNT(*) FROM dinos;
 
 -- Question 2 --
 SELECT name, species FROM dinos WHERE period = 'Jurassic';
--- =>
---         name         |     species
--- ---------------------+------------------
---  Yuanmousaurus       | Jiangyiensis
---  Yinlong             | Downsi
---  Yingshanosaurus     | Jichuanensis
---  Yimenosaurus        | Youngi
---  Yangchuanosaurus    | Shangyouensis
---  Yandusaurus         | Hongheensis
---  Vulcanodon          | Karibaensis
---  Tuojiangosaurus     | Multispinus
---  Torvosaurus         | Tanneri
---  Yunnanosaurus       | Huangi
---  Sinraptor           | Hepingensis
---  Stegosaurus         | Armatus
---  Seismosaurus        | Hallorum
---  Segisaurus          | Halli
---  Scutellosaurus      | Lawleri
---  Scelidosaurus       | Harrisonii
---  Saurophaganax       | Maximus
---  Sarcosaurus         | Woodi
---  Shunosaurus         | Lii
---  Rhoetosaurus        | Brownei
---  Poekilopleuron      | Bucklandii
---  Piatnitzkysaurus    | Floresi
---  Proceratosaurus     | Bradleyi
---  Patagosaurus        | Fariasi
---  Pantydraco          | Caducus
---  Datousaurus         | Bashanensis
---  Ornitholestes       | Hermanni
---  Omeisaurus          | Junghsiensis
---  Nqwebasaurus        | Thwazi
---  Monolophosaurus     | Jiangi
---  Othnielia           | Rex
---  Megalosaurus        | Bucklandii
---  Massospondylus      | Carinatus
---  Marshosaurus        | Bicentesimus
---  Mamenchisaurus      | Constructus
---  Lufengosaurus       | Huenei
---  Lophostropheus      | Airelensis
---  Lexovisaurus        | Durobrivensis
---  Metriacanthosaurus  | Parkeri
---  Lesothosaurus       | Diagnosticus
---  Metriacanthosaurus  | Parkeri
---  Lesothosaurus       | Diagnosticus
---  Kentrosaurus        | Aethiopicus
---  Juravenator         | Starki
---  Jingshanosaurus     | Xinwaensis
---  Janenschia          | Robusta
---  Huayangosaurus      | Taibaii
---  Heterodontosaurus   | Tucki
---  Kotasaurus          | Yamanpalliensis
---  Guanlong            | Wucaii
---  Giraffatitan        | Brancai
---  Gasosaurus          | Constructus
---  Gargoyleosaurus     | Parkpinorum
---  Eustreptospondylus  | Oxoniensis
---  Europasaurus        | Holgeri
---  Haplocanthosaurus   | Priscus
---  Emausaurus          | Ernsti
---  Euhelopus           | Zdanskyi
---  Elaphrosaurus       | Bambergi
---  Dubreuillosaurus    | Valesdunensis
---  Dryosaurus          | Altus
---  Diplodocus          | Longus
---  Dilophosaurus       | Wetherilli
---  Dicraeosaurus       | Hansemanni
---  Cryolophosaurus     | Elliotti
---  Compsognathus       | Longipes
---  Coelurus            | Fragilis
---  Chungkingosaurus    | Jiangbeiensis
---  Chirostenotes       | Pergracilis
---  Chinshakiangosaurus | Zhongheensis
---  Chaoyangsaurus      | Youngi
---  Dacentrurus         | Armatus
---  Dryosaurus          | Altus
---  Diplodocus          | Longus
---  Dilophosaurus       | Wetherilli
---  Dicraeosaurus       | Hansemanni
---  Cryolophosaurus     | Elliotti
---  Compsognathus       | Longipes
---  Coelurus            | Fragilis
---  Chungkingosaurus    | Jiangbeiensis
---  Chirostenotes       | Pergracilis
---  Chinshakiangosaurus | Zhongheensis
---  Chaoyangsaurus      | Youngi
---  Dacentrurus         | Armatus
---  Cetiosaurus         | Oxoniensis
---  Cetiosauriscus      | Stewarti
---  Ceratosaurus        | Nasicornis
---  Chialingosaurus     | Kuani
---  Brachytrachelopan   | Mesai
---  Brachiosaurus       | Altithorax
---  Bellusaurus         | Sui
---  Barosaurus          | Lentus
---  Barapasaurus        | Tagorei
---  Camarasaurus        | Supremus
---  Anchisaurus         | Polyzelous
---  Amygdalodon         | Patagonicus
---  Ammosaurus          | Major
---  Allosaurus          | Fragilis
---  Agilisaurus         | Louderbacki
---  Apatosaurus         | Ajax
---  Lapparentosaurus    | Madagascariensis
---  Hesperosaurus       | Mjosi
---  Camptosaurus        | Dispar
---  Aardonyx            | Celestae
---  Archaeopteryx       | Lithographica
--- (92 rows)
---
+-- => 92 results
+
+-- Question 3 --
+SELECT SUM(length) FROM dinos WHERE period = 'Cretaceous';
+-- => 1366.45
+
+-- Question 4 --
+SELECT name, species FROM dinos WHERE period = 'Jurassic' OR period = 'Cretaceous' ORDER BY species ASC;
+-- ==> 310 results.
+
+-- Question 5 --
+SELECT name, species FROM dinos WHERE t_order = 'Saurischia' AND diet = 'Herbivorous';
+
+-- Question 6 --
+UPDATE dinos SET name = 'Shortie' WHERE length = (SELECT MIN(length) FROM dinos);
+-- ==> UPDATE 1
+
+-- Question 7 --
+SELECT name, species FROM dinos ORDER BY name ASC LIMIT 1;
+-- => Aardonyx | Celestae
+
+-- Question 8 --
+UPDATE dinos SET name = 'The Famous Five' WHERE length = ANY(SELECT length FROM dinos WHERE length > 0 ORDER BY length DESC LIMIT 5);
+-- => UPDATE 5
